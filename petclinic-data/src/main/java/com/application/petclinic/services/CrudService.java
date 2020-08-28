@@ -1,5 +1,7 @@
 package com.application.petclinic.services;
 
+import com.application.petclinic.model.PetType;
+
 import java.util.Set;
 
 public interface CrudService<T,ID> {

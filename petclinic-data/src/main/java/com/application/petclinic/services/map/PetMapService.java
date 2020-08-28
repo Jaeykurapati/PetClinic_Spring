@@ -1,7 +1,7 @@
 package com.application.petclinic.services.map;
 
 import com.application.petclinic.model.Pet;
-import com.application.petclinic.services.CrudService;
+import com.application.petclinic.model.PetType;
 import com.application.petclinic.services.PetService;
 import org.springframework.stereotype.Service;
 

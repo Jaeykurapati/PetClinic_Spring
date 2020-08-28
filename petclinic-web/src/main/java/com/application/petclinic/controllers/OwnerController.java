@@ -6,19 +6,24 @@ import com.application.petclinic.services.map.OwnerMapService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+@RequestMapping("owners")
 @Controller
-public class OnwerController {
+public class OwnerController {
 
     private final OwnerService ownerService;
 
-    public OnwerController(OwnerService ownerService) {
+    public OwnerController(OwnerService ownerService) {
         this.ownerService = ownerService;
     }
 
-    @RequestMapping({"owner","owner/index"})
+    @RequestMapping({"","/","/index","/index.html"})
     public String getIndex(Model model){
         model.addAttribute("owners",ownerService.findAll());
         return "owner/index";
+    }
+
+    @RequestMapping("/find")
+    public String findOwner(){
+        return "notImplemented";
     }
 }
