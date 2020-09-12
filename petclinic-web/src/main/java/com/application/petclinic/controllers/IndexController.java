@@ -1,5 +1,6 @@
 package com.application.petclinic.controllers;
 
+import com.application.petclinic.services.VetService;
 import com.application.petclinic.services.map.VetMapService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexController {
 
 
-    private  VetMapService vetMapService;
+    private VetService vetService;
 
     @Autowired
-    public void setVetMapService(VetMapService vetMapService) {
-        this.vetMapService = vetMapService;
+    public void setVetService(VetService vetService) {
+        this.vetService = vetService;
     }
 
     @RequestMapping({"","/","index"})
@@ -24,7 +25,7 @@ public class IndexController {
 
     @RequestMapping({"vets.html"})
     public String getIndex(Model model){
-        model.addAttribute("vets",vetMapService.findAll());
+        model.addAttribute("vets",vetService.findAll());
         return "vet/index";
     }
 

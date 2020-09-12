@@ -6,7 +6,7 @@ import java.util.*;
 
 public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> {
 
-    private Map<Long, T> map = new HashMap<Long, T>();
+    protected Map<Long, T> map = new HashMap<Long, T>();
 
     Set<T> findAll(){
         return new HashSet<T>(map.values());
@@ -20,8 +20,9 @@ public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> 
         if(object!=null){
             if(object.getId()==null){
                 object.setId(getNextId());
-                map.put(object.getId(),object);
             }
+
+            map.put(object.getId(),object);
         }
         else {
             throw new NullPointerException("Object cannot be null");
@@ -38,12 +39,14 @@ public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> 
     }
 
     Long getNextId(){
+        Long nextId = null;
+
         try{
-            return Collections.max(map.keySet())+1;
+            nextId =  Collections.max(map.keySet())+1;
         }
         catch (NoSuchElementException e){
-            return 5L;
+            nextId = 1L;
         }
-
+        return nextId;
     }
 }

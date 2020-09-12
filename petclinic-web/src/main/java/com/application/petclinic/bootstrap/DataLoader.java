@@ -1,9 +1,7 @@
 package com.application.petclinic.bootstrap;
 
 import com.application.petclinic.model.*;
-import com.application.petclinic.services.OwnerService;
-import com.application.petclinic.services.PetTypeService;
-import com.application.petclinic.services.VetService;
+import com.application.petclinic.services.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -16,12 +14,14 @@ public class DataLoader implements CommandLineRunner {
     private final VetService vetService;
     private final PetTypeService petTypeService;
     private final SpecialitiesServices specialitiesServices;
+    private final VisitService visitService;
 
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialitiesServices specialitiesServices) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialitiesServices specialitiesServices, VisitService visitService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
         this.specialitiesServices = specialitiesServices;
+        this.visitService = visitService;
     }
 
     @Override
@@ -59,19 +59,26 @@ public class DataLoader implements CommandLineRunner {
         Owner owner2 = new Owner();
         owner2.setFirstName("David");
         owner2.setLastName("James");
-        owner1.setAddress("1234 St");
-        owner1.setCity("City Miami");
-        owner1.setTelephone("12341123123");
+        owner2.setAddress("1234 St");
+        owner2.setCity("City Miami");
+        owner2.setTelephone("12341123123");
 
         Pet davidCat = new Pet();
-        davidCat.setPetType(savedPetCat);
+        davidCat.setPetType(savedPetDog);
         davidCat.setBirthDate(LocalDate.now());
-        davidCat.setOwner(owner2);
+        davidCat.setOwner(owner1);
         davidCat.setName("puppy cat david");
-        owner2.getPets().add(jhonpet);
+        owner2.getPets().add(davidCat);
 
 
         ownerService.save(owner2);
+
+        Visit catVisit = new Visit();
+        catVisit.setPet(davidCat);
+        catVisit.setDescription("Cat..");
+        catVisit.setDate(LocalDate.now());
+
+        visitService.save(catVisit);
         System.out.println(owner2);
         System.out.println("Owners loaded");
 

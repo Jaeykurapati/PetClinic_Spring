@@ -1,6 +1,6 @@
 package com.application.petclinic.controllers;
 
-import com.application.petclinic.services.map.VetMapService;
+import com.application.petclinic.services.VetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class VetController {
 
-    private final VetMapService vetMapService;
+    private final VetService vetService;
 
-    public VetController(VetMapService vetMapService) {
-        this.vetMapService = vetMapService;
+    public VetController(VetService vetService) {
+        this.vetService = vetService;
     }
 
     @RequestMapping({"/index","/index.html"})
     public String getIndex(Model model){
-        model.addAttribute("vets",vetMapService.findAll());
+        model.addAttribute("vets",vetService.findAll());
         return "vet/index";
     }
 }
